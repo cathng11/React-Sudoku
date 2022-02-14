@@ -1,17 +1,30 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react"
+import ReactDOM from "react-dom"
+import reportWebVitals from "./core/reportWebVitals"
+import { Provider } from "react-redux"
+import { GlobalStyles, theme } from "./styles"
+import { ThemeProvider } from "styled-components"
+import { Content, Title, NewButton, Card, Grid, Numbers } from "./components"
+import { configureStore } from "core"
+import { PersistGate } from "redux-persist/integration/react"
+const { persistor, store } = configureStore()
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+  <ThemeProvider theme={theme}>
+    <GlobalStyles />
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor} />
+      <Content data-cy="content">
+        <Title data-cy="title">Sudoku</Title>
+        <Card>
+          <NewButton />
+          <Grid />
+          <Numbers />
+        </Card>
+      </Content>
+    </Provider>
+  </ThemeProvider>,
+  document.getElementById("root")
+)
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+reportWebVitals()
