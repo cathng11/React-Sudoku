@@ -16,7 +16,7 @@ interface IState {
 }
 
 const Grid: FC = () => {
-  const state = useSelector<IReducer, IState>(
+  const state = useSelector<IReducer & IState, IState>(
     ({ selectedBlock, solveGrid, workingGrid }) => ({
       selectedBlock,
       selectedValue:
